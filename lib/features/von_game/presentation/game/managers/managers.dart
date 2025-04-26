@@ -1,0 +1,1 @@
+export 'objects_manager.dart';
