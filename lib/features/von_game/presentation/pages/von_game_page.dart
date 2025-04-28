@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../game/game.dart';
-import '../game/overlays/game_overlay.dart';
 
 class VonGamePage extends StatefulWidget {
   const VonGamePage({super.key});
@@ -45,6 +44,7 @@ class _VonGamePageState extends State<VonGamePage> {
           game: game,
           overlayBuilderMap: {
             "gameOverlay": (context, VonGame game) => GameOverlay(game),
+            "gameOverOverlay": (context, VonGame game) => GameOverOverlay(game),
           },
           backgroundBuilder: (context) {
             return Image.asset(

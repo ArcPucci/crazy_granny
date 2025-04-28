@@ -69,6 +69,7 @@ flutter:
   assets:
     - assets/png/
     - assets/images/
+    - assets/images/animation/
     - assets/images/animation/boy/
     - assets/images/animation/girl/
     - assets/png/icons/
@@ -102,6 +103,9 @@ flutter:
     - family: NerkoOne
       fonts:
         - asset: assets/fonts/NerkoOne-Regular.ttf
+    - family: SeymourOne
+      fonts:
+        - asset: assets/fonts/SeymourOne-Regular.ttf
     - family: Mazzard
       fonts:
         - asset: assets/fonts/MazzardM-Black.otf

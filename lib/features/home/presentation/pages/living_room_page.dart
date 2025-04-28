@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/utils.dart';
 import '../../../../shared/shared.dart';
 
-class LivingRoomPage extends StatelessWidget {
+class LivingRoomPage extends StatefulWidget {
   const LivingRoomPage({super.key});
+
+  @override
+  State<LivingRoomPage> createState() => _LivingRoomPageState();
+}
+
+class _LivingRoomPageState extends State<LivingRoomPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    ScreenUtil.ensureScreenSize();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +62,7 @@ class LivingRoomPage extends StatelessWidget {
                 image: 'assets/png/arrow_right.png',
                 strokeColor: AppColors.purple1,
                 textPadding: EdgeInsets.only(right: 10.w),
+                onTap: () => context.go('/von_game'),
               ),
             ),
           ),

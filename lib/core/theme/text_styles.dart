@@ -1,9 +1,11 @@
+import 'package:crazy_granny/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextStyles {
   static const _mz = "Mazzard";
   static const _no = "NerkoOne";
+  static const _so = "SeymourOne";
 
   static final TextStyle no64 = TextStyle(
     fontFamily: _no,
@@ -42,6 +44,21 @@ class AppTextStyles {
     color: Colors.white,
   );
 
+  static final TextStyle no16 = TextStyle(
+    fontFamily: _no,
+    fontSize: 16.r,
+    height: 26 / 16,
+    color: Colors.white,
+  );
+
+  static final TextStyle no17 = TextStyle(
+    fontFamily: _no,
+    fontSize: 17.r,
+    height: 0.8,
+    letterSpacing: -0.4,
+    color: Colors.black,
+  );
+
   static final TextStyle no26 = TextStyle(
     fontFamily: _no,
     fontSize: 26.r,
@@ -51,7 +68,7 @@ class AppTextStyles {
       BoxShadow(
         offset: const Offset(0, 4),
         blurRadius: 12,
-        color: Colors.black.withOpacity(0.25),
+        color: Colors.black.withValues(alpha: 0.25),
       ),
     ],
   );
@@ -65,7 +82,7 @@ class AppTextStyles {
       BoxShadow(
         offset: const Offset(0, 3),
         blurRadius: 9,
-        color: Colors.black.withOpacity(0.25),
+        color: Colors.black.withValues(alpha: 0.25),
       ),
     ],
   );
@@ -77,5 +94,20 @@ class AppTextStyles {
     height: 30 / 24,
     letterSpacing: -0.32,
     color: Colors.white,
+  );
+
+  static final TextStyle mz700_8 = TextStyle(
+    fontFamily: _mz,
+    fontSize: 8.r,
+    fontWeight: FontWeight.w700,
+    height: 10 / 8,
+    color: AppColors.white1,
+  );
+
+  static final TextStyle so8 = TextStyle(
+    fontFamily: _so,
+    fontSize: 8.r,
+    height: 10 / 8,
+    color: AppColors.white1,
   );
 }

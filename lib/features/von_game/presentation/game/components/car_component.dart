@@ -38,12 +38,12 @@ class CarComponent extends PositionComponent with HasGameRef<VonGame> {
 
     leftWheel = WheelComponent(movingToRight)
       ..sprite = await Sprite.load('wheel.png')
-      ..size = VonGameConfig.wheelSize
+      ..size = Vector2(65, 65)
       ..position = leftWheelPosition;
 
     rightWheel = WheelComponent(movingToRight)
       ..sprite = await Sprite.load('wheel.png')
-      ..size = VonGameConfig.wheelSize
+      ..size = Vector2(65, 65)
       ..position = rightWheelPosition;
 
     add(body);
@@ -54,6 +54,7 @@ class CarComponent extends PositionComponent with HasGameRef<VonGame> {
   @override
   void update(double dt) {
     super.update(dt);
+    if (gameRef.gameManager.gamePaused) return;
     position.x +=
         (((movingToRight && !isFlipped) || (isFlipped && !movingToRight))
                 ? carSpeed
@@ -63,14 +64,16 @@ class CarComponent extends PositionComponent with HasGameRef<VonGame> {
 
   bool isOffScreen(Vector2 screenSize) {
     if (!movingToRight && !isFlipped) return position.x < -bodySize.x;
-    if (movingToRight && isFlipped) return position.x < -bodySize.x;
+    if (movingToRight && isFlipped) return position.x < 0;
     if (movingToRight && !isFlipped) return position.x > screenSize.x;
-    if (!movingToRight && isFlipped) return position.x > screenSize.x + bodySize.x;
+    if (!movingToRight && isFlipped) {
+      return position.x > screenSize.x + bodySize.x;
+    }
     return false;
   }
 }
 
-class WheelComponent extends SpriteComponent {
+class WheelComponent extends SpriteComponent with HasGameRef<VonGame> {
   final bool spinningToRight;
 
   WheelComponent(this.spinningToRight);
@@ -89,6 +92,7 @@ class WheelComponent extends SpriteComponent {
   @override
   void update(double dt) {
     super.update(dt);
+    if (gameRef.gameManager.gamePaused) return;
 
     angle += (spinningToRight ? spinningSpeed : -(spinningSpeed)) * dt;
   }

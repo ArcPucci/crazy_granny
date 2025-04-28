@@ -1,9 +1,5 @@
-import 'dart:async';
 import 'dart:math';
-
 import 'package:flame/components.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../game.dart';
 
 class ObjectsManager extends Component with HasGameRef<VonGame> {
@@ -26,35 +22,26 @@ class ObjectsManager extends Component with HasGameRef<VonGame> {
       }
     }
 
-    if (_activeCars.length < 2) {
-      await _spawnCar();
-      // if (_activeCars.isEmpty || _enoughDistance(_activeCars.last)) {
-      //   _spawnCar();
-      // }
-    }
+    if (_activeCars.length < 2) _spawnCar();
   }
 
   bool _enoughDistance(CarComponent lastCar) {
     final screenSize = gameRef.size;
-    final screenArea = screenSize.x / 24;
+    final screenArea = lastCar.bodySize.x;
     final movingToRight = lastCar.movingToRight;
     final isFlipped = lastCar.isFlipped;
     final position = lastCar.position;
-    final x = lastCar.bodySize.x;
     if (!movingToRight && !isFlipped) {
       return screenSize.x - position.x > screenArea;
     }
-    if (movingToRight && isFlipped) {
-      return screenSize.x - position.x - x > screenArea;
-    }
+
+    if (movingToRight && isFlipped) return screenSize.x - position.x > 0;
     if (movingToRight && !isFlipped) return position.x > screenArea;
-    if (!movingToRight && isFlipped) {
-      return screenSize.x - position.x - x > screenArea;
-    }
+    if (!movingToRight && isFlipped) return position.x > screenArea;
     return true;
   }
 
-  Future<void> _spawnCar() async {
+  void _spawnCar() {
     final fromLeft = Random().nextBool();
     final isOrange = Random().nextBool();
 
@@ -82,22 +69,22 @@ class ObjectsManager extends Component with HasGameRef<VonGame> {
 
   CarComponent _getOrangeCar() {
     return CarComponent(
-      position: Vector2(0, 300),
+      position: Vector2(0, 310),
       bodyAsset: 'orange_car.png',
-      bodySize: VonGameConfig.orangeCarBodySize,
-      leftWheelPosition: Vector2(82.r, 87.r),
-      rightWheelPosition: Vector2(300.r, 87.r),
+      bodySize: Vector2(389, 112),
+      leftWheelPosition: Vector2(82, 87),
+      rightWheelPosition: Vector2(300, 87),
     );
   }
 
   CarComponent _getPurpleCar() {
     return CarComponent(
-      position: Vector2(0, 280),
+      position: Vector2(0, 290),
       movingToRight: false,
       bodyAsset: 'purple_car.png',
-      bodySize: VonGameConfig.purpleCarBodySize,
-      leftWheelPosition: Vector2(85.r, 105.r),
-      rightWheelPosition: Vector2(285.r, 105.r),
+      bodySize: Vector2(375, 127),
+      leftWheelPosition: Vector2(85, 105),
+      rightWheelPosition: Vector2(285, 105),
     );
   }
 }
