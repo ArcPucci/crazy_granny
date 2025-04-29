@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils.dart';
 import '../../../../../shared/shared.dart';
-import '../../../../features.dart';
-import '../game.dart';
+import '../../../features.dart';
 
 class GameOverOverlay extends StatelessWidget {
   const GameOverOverlay(this.game, {super.key});

@@ -1,12 +1,12 @@
+import 'package:crazy_granny/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/utils.dart';
+import '../../../core/utils.dart';
 
-class SimpleButton extends StatelessWidget {
-  const SimpleButton({super.key, required this.text, this.onTap});
+class SpinButton extends StatelessWidget {
+  const SpinButton({super.key, this.onTap});
 
-  final String text;
   final VoidCallback? onTap;
 
   @override
@@ -14,8 +14,8 @@ class SimpleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 158.w,
-        height: 61.h,
+        width: 121.w,
+        height: 48.h,
         decoration: BoxDecoration(
           image: const DecorationImage(
             image: AssetImage('assets/png/button/button1.png'),
@@ -23,14 +23,19 @@ class SimpleButton extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              offset: const Offset(0, 6),
               blurRadius: 6,
-              color: Colors.black.withOpacity(0.25),
+              offset: const Offset(0, 6),
+              color: Colors.black.withValues(alpha: 0.25),
             ),
           ],
         ),
         alignment: Alignment.center,
-        child: Text(text, style: AppTextStyles.no34),
+        child: CustomStrokeText(
+          text: "SPIN",
+          textStyle: AppTextStyles.no32,
+          strokeColor: AppColors.orange3,
+          strokeWidth: 2.sp,
+        ),
       ),
     );
   }

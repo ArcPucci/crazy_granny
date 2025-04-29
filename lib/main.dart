@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:crazy_granny/features/von_game/presentation/pages/von_game_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/bar/slot/bonus',
       routes: [
         GoRoute(
           path: '/onboardings',
@@ -58,6 +57,26 @@ class _MyAppState extends State<MyApp> {
             GoRoute(
               path: 'von_game',
               builder: (context, state) => const VonGamePage(),
+            ),
+            GoRoute(
+              path: 'bar_intro',
+              builder: (context, state) => const BarIntroPage(),
+            ),
+            GoRoute(
+              path: 'bar',
+              builder: (context, state) => const BarPage(),
+              routes: [
+                GoRoute(
+                  path: 'slot',
+                  builder: (context, state) => const BarSlotPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'bonus',
+                      builder: (context, state) => const AimShootPage(),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

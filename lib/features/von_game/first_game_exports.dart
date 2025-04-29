@@ -1,1 +1,3 @@
-export 'presentation/presentation.dart';
+export 'game/game.dart';
+export 'pages/pages.dart';
+export 'widgets/widgets.dart';

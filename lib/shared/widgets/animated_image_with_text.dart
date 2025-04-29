@@ -12,6 +12,8 @@ class AnimatedImageWithText extends StatefulWidget {
     this.textPadding = EdgeInsets.zero,
     this.onTap,
     this.strokeColor,
+    this.delay = 0,
+    this.duration = 5,
   });
 
   final String text;
@@ -19,6 +21,8 @@ class AnimatedImageWithText extends StatefulWidget {
   final Color? strokeColor;
   final EdgeInsets textPadding;
   final VoidCallback? onTap;
+  final int delay;
+  final int duration;
 
   @override
   State<AnimatedImageWithText> createState() => _AnimatedImageWithTextState();
@@ -42,12 +46,14 @@ class _AnimatedImageWithTextState extends State<AnimatedImageWithText>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    Future.doWhile(() async {
-      await Future.delayed(const Duration(seconds: 5));
-      if (!mounted) return false;
-      await _controller.forward();
-      await _controller.reverse();
-      return true;
+    Future.delayed(Duration(seconds: widget.delay), () {
+      Future.doWhile(() async {
+        if (!mounted) return false;
+        await _controller.forward();
+        await _controller.reverse();
+        await Future.delayed(Duration(seconds: widget.duration));
+        return true;
+      });
     });
   }
 

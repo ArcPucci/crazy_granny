@@ -15,6 +15,13 @@ class AppTextStyles {
     color: Colors.white,
   );
 
+  static final TextStyle no48 = TextStyle(
+    fontFamily: _no,
+    fontSize: 48.r,
+    letterSpacing: 0.78,
+    color: Colors.white,
+  );
+
   static final TextStyle no34 = TextStyle(
     fontFamily: _no,
     fontSize: 34.r,
@@ -28,6 +35,19 @@ class AppTextStyles {
     fontSize: 32.r,
     height: 24 / 32,
     color: Colors.white,
+  );
+
+  static final TextStyle no30 = TextStyle(
+    fontFamily: _no,
+    fontSize: 30.r,
+    color: Colors.white,
+    shadows: [
+      BoxShadow(
+        offset: const Offset(0, 5),
+        blurRadius: 5,
+        color: Colors.black.withValues(alpha: 0.25),
+      ),
+    ],
   );
 
   static final TextStyle no24 = TextStyle(
@@ -48,6 +68,13 @@ class AppTextStyles {
     fontFamily: _no,
     fontSize: 16.r,
     height: 26 / 16,
+    color: Colors.white,
+  );
+
+  static final TextStyle no15 = TextStyle(
+    fontFamily: _no,
+    fontSize: 15.r,
+    height: 26 / 15,
     color: Colors.white,
   );
 
