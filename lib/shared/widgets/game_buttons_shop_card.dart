@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/utils.dart';
+import '../../core/core.dart';
 import '../shared.dart';
-import 'buttons/buttons.dart';
 
 class GameButtonsShopCard extends StatelessWidget {
   const GameButtonsShopCard({

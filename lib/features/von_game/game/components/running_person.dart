@@ -46,7 +46,12 @@ class RunningPerson extends SpriteAnimationGroupComponent
     };
 
     current = PlayerState.run;
-    add(RectangleHitbox());
+    add(
+      RectangleHitbox(
+        size: Vector2(size.x / 2, size.y),
+        position: Vector2(size.x / 4, 0),
+      ),
+    );
     return super.onLoad();
   }
 

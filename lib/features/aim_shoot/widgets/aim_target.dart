@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:crazy_granny/features/features.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +9,12 @@ class AimTarget extends StatefulWidget {
     super.key,
     required this.item,
     required this.onInit,
+    required this.onCompleted,
   });
 
   final HighlightedItem item;
   final void Function(VoidCallback?) onInit;
+  final void Function(bool hasButton) onCompleted;
 
   @override
   State<AimTarget> createState() => _AimTargetState();
@@ -35,6 +39,8 @@ class _AimTargetState extends State<AimTarget>
     Size(132.w, 120.h),
   ];
 
+  final _hasButton = Random().nextBool();
+
   @override
   void initState() {
     super.initState();
@@ -42,13 +48,23 @@ class _AimTargetState extends State<AimTarget>
       vsync: this,
       duration: const Duration(milliseconds: 250),
     )..addListener(() {
-        if (_controller.isCompleted) setState(() {});
+        if (_controller.isCompleted) {
+          setState(() => widget.onCompleted.call(_hasButton));
+        }
       });
     widget.onInit.call(_controller.forward);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_controller.isCompleted && _hasButton) {
+      return Image.asset(
+        'assets/png/button_shadow.png',
+        width: 55.w,
+        height: 55.h,
+        fit: BoxFit.fill,
+      );
+    }
     if (_controller.isCompleted) return const SizedBox();
     return SizedBox(
       width: widget.item.size.width,

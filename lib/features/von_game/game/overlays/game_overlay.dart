@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils.dart';
+import '../../../../../core/core.dart';
 import '../../../../../shared/shared.dart';
 import '../../widgets/dialogs/dialogs.dart';
 import '../game.dart';

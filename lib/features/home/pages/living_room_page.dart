@@ -1,8 +1,10 @@
+import 'package:crazy_granny/shared/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../core/utils.dart';
+import '../../../../core/core.dart';
 import '../../../../shared/shared.dart';
 
 class LivingRoomPage extends StatefulWidget {
@@ -13,11 +15,15 @@ class LivingRoomPage extends StatefulWidget {
 }
 
 class _LivingRoomPageState extends State<LivingRoomPage> {
-
   @override
   void initState() {
     super.initState();
     ScreenUtil.ensureScreenSize();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final provider = Provider.of<AppDataRepository>(context, listen: false);
+      if (await provider.getLastDailyReward()) _showDailyBonusDialog();
+    });
   }
 
   @override
@@ -50,6 +56,7 @@ class _LivingRoomPageState extends State<LivingRoomPage> {
                 text: 'NIGHT FUN',
                 image: 'assets/png/arrow_left.png',
                 textPadding: EdgeInsets.only(left: 20.w),
+                onTap: () => context.go('/bar_intro'),
               ),
             ),
           ),
@@ -86,8 +93,8 @@ class _LivingRoomPageState extends State<LivingRoomPage> {
             child: Center(
               child: SafeArea(
                 child: MainAppBar(
-                  onTapPlus: () => _showButtonsDialog(context),
-                  onTapShop: () => _showDailyBonusDialog(context),
+                  onTapShop: _showShop,
+                  onTapPlus: _showButtonsDialog,
                 ),
               ),
             ),
@@ -97,7 +104,7 @@ class _LivingRoomPageState extends State<LivingRoomPage> {
     );
   }
 
-  void _showButtonsDialog(BuildContext context) {
+  void _showButtonsDialog() {
     showDialog(
       context: context,
       builder: (context) {
@@ -106,7 +113,16 @@ class _LivingRoomPageState extends State<LivingRoomPage> {
     );
   }
 
-  void _showDailyBonusDialog(BuildContext context) {
+  void _showShop() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const GrannyItemsShopDialog();
+      },
+    );
+  }
+
+  void _showDailyBonusDialog() {
     showDialog(
       context: context,
       builder: (context) {

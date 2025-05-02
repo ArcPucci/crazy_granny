@@ -2,6 +2,7 @@ import 'package:crazy_granny/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../features.dart';
 
@@ -63,6 +64,7 @@ class _AimShootPageState extends State<AimShootPage>
                   child: AimTarget(
                     item: item,
                     onInit: (explode) => targets[index].explode = explode,
+                    onCompleted: _showResult,
                   ),
                 ),
               );
@@ -112,6 +114,17 @@ class _AimShootPageState extends State<AimShootPage>
       context: context,
       builder: (context) {
         return const BonusGameInfoDialog();
+      },
+    );
+  }
+
+  void _showResult(bool won) {
+    final value = won ? 5000 : 1000;
+    Provider.of<AppDataProvider>(context, listen: false).addButtons(value);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return GameResultDialog(won: won);
       },
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/utils.dart';
+import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 
 class BarPage extends StatelessWidget {
@@ -28,6 +28,7 @@ class BarPage extends StatelessWidget {
                 duration: 2,
                 image: 'assets/png/arrow_left.png',
                 textPadding: EdgeInsets.only(left: 20.w),
+                onTap: () => context.go('/bar/slot'),
               ),
             ),
           ),
@@ -38,11 +39,11 @@ class BarPage extends StatelessWidget {
               child: AnimatedImageWithText(
                 delay: 2,
                 duration: 2,
-                text: 'GAME BOR',
+                text: 'GAME BAR',
                 image: 'assets/png/arrow_right.png',
                 strokeColor: AppColors.purple1,
                 textPadding: EdgeInsets.only(right: 25.w),
-                onTap: () => context.go('/von_game'),
+                onTap: () => context.go('/bar/bartender'),
               ),
             ),
           ),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/utils.dart';
+import '../../../core/core.dart';
 import '../../shared.dart';
 
 class GameMoneyDialog extends StatelessWidget {
-  const GameMoneyDialog({super.key});
+  const GameMoneyDialog({super.key, this.appBar});
+
+  final Widget? appBar;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +40,21 @@ class GameMoneyDialog extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: List.generate(
-                            3,
+                            GameShop.gameCurrencies.length,
                             (index) {
+                              final currency = GameShop.gameCurrencies[index];
                               return GameButtonsShopCard(
-                                quantity: '50 000',
-                                buttonText: '2,99 \$',
-                                bestPrice: index == 0,
+                                quantity: currency.quantityString,
+                                buttonText: '${currency.priceString} \$',
+                                bestPrice: currency.bestPrice,
+                                onTap: () {
+                                  final provider = Provider.of<AppDataProvider>(
+                                    context,
+                                    listen: false,
+                                  );
+
+                                  provider.addButtons(currency.quantity);
+                                },
                               );
                             },
                           ),
@@ -86,12 +98,13 @@ class GameMoneyDialog extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 16.h,
-            left: 0,
-            right: 0,
-            child: const Center(child: SafeArea(child: MainAppBar())),
-          ),
+          appBar ??
+              Positioned(
+                top: 16.h,
+                left: 0,
+                right: 0,
+                child: const Center(child: SafeArea(child: MainAppBar())),
+              ),
         ],
       ),
     );

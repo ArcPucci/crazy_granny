@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils.dart';
+import '../../../../core/core.dart';
 import '../../../../shared/shared.dart';
 
 class BonusGameInfoDialog extends StatefulWidget {
@@ -196,7 +196,7 @@ class _BonusGameInfoDialogState extends State<BonusGameInfoDialog> {
             top: 5.h,
             left: 0,
             right: 0,
-            child: const Center(child: MiniGameAppBar()),
+            child: const Center(child: MiniGameAppBar(canTapPlus: false)),
           ),
         ],
       ),

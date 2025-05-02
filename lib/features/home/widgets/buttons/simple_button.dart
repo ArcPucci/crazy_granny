@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/utils.dart';
+import '../../../../../core/core.dart';
 
 class SimpleButton extends StatelessWidget {
   const SimpleButton({super.key, required this.text, this.onTap});

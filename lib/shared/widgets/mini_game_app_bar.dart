@@ -5,9 +5,16 @@ import 'package:go_router/go_router.dart';
 import '../shared.dart';
 
 class MiniGameAppBar extends StatelessWidget {
-  const MiniGameAppBar({super.key, this.onTapInfo});
+  const MiniGameAppBar({
+    super.key,
+    this.onTapInfo,
+    this.canTapPlus = true,
+    this.onTapHome,
+  });
 
+  final bool canTapPlus;
   final VoidCallback? onTapInfo;
+  final VoidCallback? onTapHome;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,7 @@ class MiniGameAppBar extends StatelessWidget {
           SizedBox(width: 5.w),
           SmallIconButton(
             asset: 'assets/png/icons/home.png',
-            onTap: context.pop,
+            onTap: onTapHome ?? context.pop,
           ),
           SizedBox(width: 7.w),
           SmallIconButton(
@@ -26,9 +33,30 @@ class MiniGameAppBar extends StatelessWidget {
             onTap: onTapInfo,
           ),
           const Spacer(),
-          const MoneyCountWidget(),
+          MoneyCountWidget(
+            onTapPlus: () {
+              if (!canTapPlus) return;
+              _showShop(context);
+            },
+          ),
         ],
       ),
+    );
+  }
+
+  void _showShop(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return GameMoneyDialog(
+          appBar: Positioned(
+            top: 5.h,
+            left: 0,
+            right: 0,
+            child: const Center(child: MiniGameAppBar(canTapPlus: false)),
+          ),
+        );
+      },
     );
   }
 }

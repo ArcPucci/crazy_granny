@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/utils.dart';
+import '../../../core/core.dart';
 
 class GameShopPriceButton extends StatelessWidget {
   const GameShopPriceButton({super.key, required this.buttonText, this.onTap});
@@ -12,6 +12,7 @@ class GameShopPriceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Stack(
         alignment: Alignment.center,
         children: [

@@ -37,7 +37,7 @@ class FallingComponent extends SpriteComponent with HasGameRef<VonGame> {
     if (_exploded) return;
     add(BlastAnimation(removeFromParent));
     _exploded = true;
-    if (!_exploded) gameRef.gameManager.addScore();
+    gameRef.gameManager.addScore();
   }
 }
 

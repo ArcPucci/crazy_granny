@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../core/utils.dart';
+import '../../../../../core/core.dart';
 import '../../../../../shared/shared.dart';
 
 class FallingItemsShopDialog extends StatefulWidget {
@@ -73,13 +74,17 @@ class _FallingItemsShopDialogState extends State<FallingItemsShopDialog> {
                             controller: controller,
                             child: Column(
                               children: List.generate(
-                                4,
+                                GameShop.grannyItems.length,
                                 (index) {
+                                  final item = GameShop.grannyItems[index];
                                   return Padding(
                                     padding: EdgeInsets.only(
                                       top: index == 0 ? 0 : 7.h,
                                     ),
-                                    child: const FallingItemShopCard(),
+                                    child: FallingItemShopCard(
+                                      item: item,
+                                      onBuy: () => _buy(item),
+                                    ),
                                   );
                                 },
                               ),
@@ -156,5 +161,10 @@ class _FallingItemsShopDialogState extends State<FallingItemsShopDialog> {
         ],
       ),
     );
+  }
+
+  void _buy(ShopItem item) {
+    final provider = Provider.of<AppDataProvider>(context, listen: false);
+    provider.buyItem(item);
   }
 }

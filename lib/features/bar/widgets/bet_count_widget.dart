@@ -42,7 +42,10 @@ class BetCountWidget extends StatelessWidget {
                   height: 34.h,
                 ),
                 SizedBox(width: 12.w),
-                Text("$bet", style: AppTextStyles.no30),
+                Text(
+                  "$bet",
+                  style: AppTextStyles.no30.copyWith(fontSize: 30.r),
+                ),
               ],
             ),
           ),

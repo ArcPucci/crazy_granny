@@ -5,8 +5,9 @@ import 'package:crazy_granny/features/bar/bar.dart';
 import 'package:crazy_granny/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../core/utils.dart';
+import '../../../core/core.dart';
 
 class BarIntroPage extends StatefulWidget {
   const BarIntroPage({super.key});
@@ -37,6 +38,7 @@ class _BarIntroPageState extends State<BarIntroPage> {
 
           _timer?.cancel();
 
+          context.go('/bar');
           return;
         }
       },

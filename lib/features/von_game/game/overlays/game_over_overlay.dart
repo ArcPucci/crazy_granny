@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils.dart';
+import '../../../../../core/core.dart';
 import '../../../../../shared/shared.dart';
 import '../../../features.dart';
 
@@ -65,7 +65,7 @@ class GameOverOverlay extends StatelessWidget {
                             Text("Best Score:", style: AppTextStyles.so8),
                             SizedBox(height: 4.h),
                             Text(
-                              "1000",
+                              "${game.gameManager.bestScore}",
                               style: AppTextStyles.no32.copyWith(
                                 color: AppColors.white1,
                               ),
@@ -83,7 +83,7 @@ class GameOverOverlay extends StatelessWidget {
                             Text("Your Score:", style: AppTextStyles.so8),
                             SizedBox(height: 4.h),
                             Text(
-                              "1000",
+                              "${game.gameManager.score.value}",
                               style: AppTextStyles.no32.copyWith(
                                 color: AppColors.white1,
                               ),

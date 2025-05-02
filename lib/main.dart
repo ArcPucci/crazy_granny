@@ -1,15 +1,21 @@
 import 'dart:async';
 
+import 'package:crazy_granny/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'features/features.dart';
 
 void main() {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+
+      final preferencesInstance = await SharedPreferences.getInstance();
+      final repository = AppDataRepository(preferencesInstance);
 
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
@@ -19,7 +25,7 @@ void main() {
       runApp(
         ScreenUtilInit(
           designSize: const Size(390, 844),
-          builder: (context, child) => const MyApp(),
+          builder: (context, child) => MyApp(repository: repository),
         ),
       );
     },
@@ -31,7 +37,9 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.repository});
+
+  final AppDataRepository repository;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -44,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _router = GoRouter(
-      initialLocation: '/bar/slot/bonus',
+      initialLocation: '/bar/bartender',
       routes: [
         GoRoute(
           path: '/onboardings',
@@ -76,6 +84,10 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
+                GoRoute(
+                  path: 'bartender',
+                  builder: (context, state) => const BartenderGamePage(),
+                ),
               ],
             ),
           ],
@@ -86,13 +98,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        Provider.value(value: widget.repository),
+        ChangeNotifierProvider(
+          create: (_) => AppDataProvider(widget.repository),
+        ),
+      ],
+      child: MaterialApp.router(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routerConfig: _router,
       ),
-      routerConfig: _router,
     );
   }
 }

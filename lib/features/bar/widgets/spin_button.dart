@@ -2,7 +2,7 @@ import 'package:crazy_granny/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/utils.dart';
+import '../../../core/core.dart';
 
 class SpinButton extends StatelessWidget {
   const SpinButton({super.key, this.onTap});

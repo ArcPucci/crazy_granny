@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../core/utils.dart';
+import '../../../../../core/core.dart';
 import '../../../../../shared/shared.dart';
 
 class ButtonShopDialog extends StatefulWidget {
@@ -68,12 +69,21 @@ class _ButtonShopDialogState extends State<ButtonShopDialog> {
                               controller: controller,
                               child: Column(
                                 children: List.generate(
-                                  3,
-                                  (index) {
+                                  GameShop.gameCurrencies.length,
+                                      (index) {
+                                    final currency = GameShop.gameCurrencies[index];
                                     return GameButtonsShopCard(
-                                      quantity: '50 000',
-                                      buttonText: '2,99 \$',
-                                      bestPrice: index == 0,
+                                      quantity: currency.quantityString,
+                                      buttonText: '${currency.priceString} \$',
+                                      bestPrice: currency.bestPrice,
+                                      onTap: () {
+                                        final provider = Provider.of<AppDataProvider>(
+                                          context,
+                                          listen: false,
+                                        );
+
+                                        provider.addButtons(currency.quantity);
+                                      },
                                     );
                                   },
                                 ),

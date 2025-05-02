@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/utils.dart';
+import '../../../core/core.dart';
 import '../../shared.dart';
 
 class DailyBonusDialog extends StatelessWidget {
@@ -34,10 +35,11 @@ class DailyBonusDialog extends StatelessWidget {
                         ),
                       ),
                       alignment: Alignment.center,
-                      child: const GameButtonsShopCard(
+                      child: GameButtonsShopCard(
                         quantity: '2 000',
                         buttonText: "GET",
                         padding: EdgeInsets.zero,
+                        onTap: () => _onTap(context),
                       ),
                     ),
                   ),
@@ -86,5 +88,11 @@ class DailyBonusDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onTap(BuildContext context) {
+    final provider = Provider.of<AppDataProvider>(context, listen: false);
+    provider.getDailyReward();
+    Navigator.of(context).pop();
   }
 }
