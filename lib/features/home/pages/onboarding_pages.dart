@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/core.dart';
 import '../../features.dart';
@@ -76,7 +77,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   height: 168.h,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/png/frame1.png'),
+                      image: AssetImage('assets/png/frames/frame1.png'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -121,7 +122,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   height: 168.h,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/png/frame1.png'),
+                      image: AssetImage('assets/png/frames/frame1.png'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -166,7 +167,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   height: 168.h,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/png/frame1.png'),
+                      image: AssetImage('assets/png/frames/frame1.png'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -178,7 +179,10 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   ),
                 ),
                 SizedBox(height: 18.h),
-                const SimpleButton(text: "START"),
+                SimpleButton(
+                  text: "START",
+                  onTap: () => context.go('/'),
+                ),
               ],
             ),
           ),

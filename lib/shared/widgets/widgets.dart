@@ -1,4 +1,5 @@
 export 'main_app_bar.dart';
+export 'game_shop_box.dart';
 export 'mini_game_app_bar.dart';
 export 'custom_stroke_text.dart';
 export 'money_count_widget.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/core.dart';
-import '../../../../../shared/shared.dart';
+import '../../../core/core.dart';
+import '../../../shared/shared.dart';
 
-class ButtonShopDialog extends StatelessWidget {
-  const ButtonShopDialog({super.key});
+class BartenderShopDialog extends StatelessWidget {
+  const BartenderShopDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +63,8 @@ class ButtonShopDialog extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 22.h,
-            right: 25.w,
+            top: 14.h,
+            right: 27.w,
             child: const MoneyCountWidget(),
           ),
         ],

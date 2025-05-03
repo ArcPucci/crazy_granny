@@ -1,0 +1,1 @@
+export 'bartender_game_provider.dart';

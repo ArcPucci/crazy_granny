@@ -10,11 +10,13 @@ class BetCountWidget extends StatelessWidget {
     required this.bet,
     this.onIncrease,
     this.onDecrease,
+    this.disabled = false,
   });
 
   final int bet;
   final VoidCallback? onIncrease;
   final VoidCallback? onDecrease;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,10 @@ class BetCountWidget extends StatelessWidget {
                 SizedBox(width: 12.w),
                 Text(
                   "$bet",
-                  style: AppTextStyles.no30.copyWith(fontSize: 30.r),
+                  style: AppTextStyles.no30.copyWith(
+                    color: disabled ? const Color(0xFF656262) : null,
+                    fontSize: 30.r,
+                  ),
                 ),
               ],
             ),
@@ -58,6 +63,7 @@ class BetCountWidget extends StatelessWidget {
               iconHeight: 2.sp,
               asset: 'assets/png/icons/minus.png',
               onTap: onDecrease,
+              disabled: disabled,
             ),
           ),
           Positioned(
@@ -69,6 +75,7 @@ class BetCountWidget extends StatelessWidget {
               iconHeight: 11.h,
               asset: 'assets/png/icons/plus.png',
               onTap: onIncrease,
+              disabled: disabled,
             ),
           ),
         ],

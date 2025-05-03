@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _router = GoRouter(
-      initialLocation: '/bar/bartender',
+      initialLocation: '/onboardings',
       routes: [
         GoRoute(
           path: '/onboardings',

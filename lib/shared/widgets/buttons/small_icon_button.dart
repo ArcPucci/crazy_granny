@@ -10,6 +10,7 @@ class SmallIconButton extends StatelessWidget {
     this.iconWidth,
     this.iconHeight,
     this.onTap,
+    this.disabled = false,
   });
 
   final String asset;
@@ -18,34 +19,48 @@ class SmallIconButton extends StatelessWidget {
   final double? iconWidth;
   final double? iconHeight;
   final VoidCallback? onTap;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: width ?? 52.w,
-        height: height ?? 45.h,
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/png/button/small_button_1.png'),
-            fit: BoxFit.fill,
-          ),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 4),
-              blurRadius: 4,
-              color: Colors.black.withValues(alpha: 0.25),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: width ?? 52.w,
+            height: height ?? 45.h,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/png/button/small_button_1.png'),
+                fit: BoxFit.fill,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 4,
+                  color: Colors.black.withValues(alpha: 0.25),
+                ),
+              ],
             ),
-          ],
+            alignment: Alignment.center,
+            child: Image.asset(
+              asset,
+              width: iconWidth ?? 21.w,
+              height: iconHeight ?? 21.h,
+            ),
+          ),
         ),
-        alignment: Alignment.center,
-        child: Image.asset(
-          asset,
-          width: iconWidth ?? 21.w,
-          height: iconHeight ?? 21.h,
-        ),
-      ),
+        if (disabled)
+          Container(
+            width: width ?? 52.w,
+            height: height ?? 45.h,
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.41),
+              borderRadius: BorderRadius.circular(6.22),
+            ),
+          ),
+      ],
     );
   }
 }
