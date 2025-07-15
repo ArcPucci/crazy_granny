@@ -58,11 +58,22 @@ class _AimTargetState extends State<AimTarget>
   @override
   Widget build(BuildContext context) {
     if (_controller.isCompleted && _hasButton) {
-      return Image.asset(
-        'assets/png/button_shadow.png',
-        width: 55.w,
-        height: 55.h,
-        fit: BoxFit.fill,
+      final width =
+          widget.item.size.width > 55.r ? widget.item.size.width : 55.r;
+      final height =
+          widget.item.size.height > 55.r ? widget.item.size.height : 55.r;
+
+      return SizedBox(
+        width: width,
+        height: height,
+        child: Center(
+          child: Image.asset(
+            'assets/png/button_shadow.png',
+            width: 55.r,
+            height: 55.r,
+            fit: BoxFit.fill,
+          ),
+        ),
       );
     }
     if (_controller.isCompleted) return const SizedBox();

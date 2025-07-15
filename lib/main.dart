@@ -116,22 +116,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-/*
-* lib/
-├── core/
-│   └── error/, utils/, constants/
-├── features/
-│   └── home/
-│       ├── data/
-│       │   ├── datasources/
-│       │   ├── models/
-│       │   └── repositories/ (реализация)
-│       ├── domain/
-│       │   ├── entities/
-│       │   ├── repositories/ (абстракции)
-│       │   └── usecases/
-│       └── presentation/
-│           ├── bloc/ или provider/
-│           └── screens/
-└── main.dart*/

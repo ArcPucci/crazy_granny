@@ -42,8 +42,8 @@ class SlotGameResultDialog extends StatelessWidget {
                 SizedBox(width: 5.w),
                 Image.asset(
                   'assets/png/button.png',
-                  width: 76.w,
-                  height: 75.h,
+                  width: 76.r,
+                  height: 75.r,
                   fit: BoxFit.fill,
                 ),
                 SizedBox(width: 5.w),

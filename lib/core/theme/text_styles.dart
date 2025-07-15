@@ -127,6 +127,20 @@ class AppTextStyles {
     color: Colors.black,
   );
 
+  static final TextStyle no24WithShadow = TextStyle(
+    fontFamily: _no,
+    fontSize: 24.r,
+    height: 14 / 24,
+    color: Colors.white,
+    shadows: [
+      BoxShadow(
+        offset: const Offset(0, 4),
+        blurRadius: 12,
+        color: Colors.black.withValues(alpha: 0.25),
+      ),
+    ],
+  );
+
   static final TextStyle no26 = TextStyle(
     fontFamily: _no,
     fontSize: 26.r,

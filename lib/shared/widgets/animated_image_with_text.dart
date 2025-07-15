@@ -82,7 +82,7 @@ class _AnimatedImageWithTextState extends State<AnimatedImageWithText>
               child: CustomStrokeText(
                 text: widget.text,
                 strokeWidth: 4.sp,
-                textStyle: AppTextStyles.no26,
+                textStyle: AppTextStyles.no24WithShadow,
                 strokeColor: widget.strokeColor ?? AppColors.orange2,
               ),
             ),

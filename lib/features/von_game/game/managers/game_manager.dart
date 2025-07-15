@@ -65,6 +65,13 @@ class GameManager extends Component {
     init();
   }
 
+  void restartGame() {
+    _gamePaused = false;
+    score.value = 0;
+    miss.value = 0;
+    init();
+  }
+
   int useItem() {
     if (shoesCount.value > 0) {
       shoesCount.value--;

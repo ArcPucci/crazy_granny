@@ -109,7 +109,7 @@ class _SidrWidgetState extends State<SidrWidget> with TickerProviderStateMixin {
           top: 100.h,
           child: SizedBox(
             width: 60.w,
-            height: 155.h,
+            height: 158.h,
             child: Stack(
               children: [
                 Positioned(
@@ -124,8 +124,8 @@ class _SidrWidgetState extends State<SidrWidget> with TickerProviderStateMixin {
                           10.w,
                           -height +
                               104.h +
-                              ((height + 210.h) * _controller.value) -
-                              155.h,
+                              ((height + 213.h) * _controller.value) -
+                              158.h,
                         ),
                         child: Image.asset(
                           liquid.asset,
@@ -203,7 +203,7 @@ class _SidrWidgetState extends State<SidrWidget> with TickerProviderStateMixin {
                   width: 74.r,
                   height: 116.r,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 35.h),
+                    padding: EdgeInsets.only(bottom: 36.r),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: AnimatedBuilder(
@@ -351,7 +351,7 @@ class _SidrWidgetState extends State<SidrWidget> with TickerProviderStateMixin {
         await Future.delayed(const Duration(seconds: 1));
 
         _showLight = false;
-        setState(() {});
+        if (!mounted) setState(() {});
 
         _gameOver = true;
       }

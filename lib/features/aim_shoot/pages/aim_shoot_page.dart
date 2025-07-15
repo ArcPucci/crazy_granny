@@ -15,34 +15,46 @@ class AimShootPage extends StatefulWidget {
 
 class _AimShootPageState extends State<AimShootPage>
     with SingleTickerProviderStateMixin {
+  late final FocusNode _focusNode;
+  DateTime _lastShootTime = DateTime.now();
   late final Ticker _ticker;
   final double _aimSpeed = 150;
   Offset _direction = Offset.zero;
-  Offset _aimPosition = Offset(122.w, 322.h);
+  Offset _aimPosition = Offset(122.r, 322.r);
   Duration _lastElapsed = Duration.zero;
   Offset _crosshairVelocity = Offset.zero;
 
   bool _canMove = true;
 
-  final targets = List.generate(
-    GrannyCollection.items.length,
-    (index) => TargetModel(item: GrannyCollection.items[index]),
-  );
+  final List<TargetModel> targets = [];
 
   @override
   void initState() {
     super.initState();
-    _ticker = createTicker(_onTick)..start();
+    targets.addAll(
+      GrannyCollection.items.map((item) => TargetModel(item: item)).toList(),
+    );
+    _ticker = createTicker(_onTick);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _ticker.start();
+    });
+
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
+    _ticker.stop();
     _ticker.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final hasSafeArea = MediaQuery.of(context).viewInsets.top > 0 ||
+        MediaQuery.of(context).viewPadding.top > 0;
+    final screenSizeDiff = hasSafeArea ? 0 : 30.h;
     return Material(
       color: Colors.black,
       child: Stack(
@@ -53,31 +65,29 @@ class _AimShootPageState extends State<AimShootPage>
               fit: BoxFit.fill,
             ),
           ),
-          ...List.generate(
-            targets.length,
-            (index) {
-              final item = targets[index].item;
-              return Positioned(
-                top: item.offset.dy,
-                left: item.offset.dx,
-                child: SafeArea(
-                  child: AimTarget(
-                    item: item,
-                    onInit: (explode) => targets[index].explode = explode,
-                    onCompleted: _showResult,
-                  ),
+          ...targets.map((target) {
+            final item = target.item;
+            return Positioned(
+              top: item.offset.dy + screenSizeDiff,
+              left: item.offset.dx,
+              child: SafeArea(
+                child: AimTarget(
+                  key: target.key,
+                  item: item,
+                  onInit: (explode) => target.explode = explode,
+                  onCompleted: _showResult,
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          }),
           Positioned(
             top: _aimPosition.dy,
             left: _aimPosition.dx,
             child: SafeArea(
               child: Image.asset(
                 'assets/png/aim.png',
-                width: 98,
-                height: 98,
+                width: 98.r,
+                height: 98.r,
                 fit: BoxFit.fill,
               ),
             ),
@@ -123,6 +133,7 @@ class _AimShootPageState extends State<AimShootPage>
     Provider.of<AppDataProvider>(context, listen: false).addButtons(value);
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return GameResultDialog(won: won);
       },
@@ -164,21 +175,33 @@ class _AimShootPageState extends State<AimShootPage>
   }
 
   void onShoot() {
-    const double aimAssistRadius = 49;
+    if (DateTime.now().difference(_lastShootTime) <
+        const Duration(milliseconds: 300)) {
+      return;
+    }
 
-    final screenSize = MediaQuery.of(context).size;
-    final screenCenter = Offset(screenSize.width / 2, screenSize.height / 2);
+    _lastShootTime = DateTime.now();
 
-    final crosshairGlobal = screenCenter + _aimPosition;
+    final overlayBox =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+    final crosshairCenterGlobal = overlayBox.localToGlobal(
+      _aimPosition + Offset(49.r, 49.r),
+    );
 
     for (final target in targets) {
-      final targetGlobal = screenCenter + target.item.offset;
-      final distance = (crosshairGlobal - targetGlobal).distance;
-      print(distance);
+      final targetBox = target.key.currentContext?.findRenderObject();
+      if (targetBox == null || !targetBox.attached) continue;
 
-      if (distance <= aimAssistRadius) {
-        print('🎯 Попал в цель! Target: ${target.item.asset}');
+      final box = targetBox as RenderBox;
+      final targetTopLeft = box.localToGlobal(Offset.zero);
+      final targetCenter =
+          targetTopLeft + Offset(box.size.width / 2, box.size.height / 2);
+
+      final distance = (crosshairCenterGlobal - targetCenter).distance;
+
+      if (distance <= 80.r) {
         target.explode?.call();
+        break;
       }
     }
   }

@@ -48,6 +48,8 @@ class ObjectsManager extends Component with HasGameRef<VonGame> {
     if (_activeCars.isNotEmpty && !_enoughDistance(_activeCars.last)) return;
 
     final baseCar = isOrange ? _getOrangeCar() : _getPurpleCar();
+    final posY = (gameRef.size.y * 0.96) - baseCar.bodySize.y;
+    baseCar.position.y = posY;
 
     final newCar = baseCar
       ..priority = fromLeft ? 0 : 1

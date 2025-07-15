@@ -48,7 +48,7 @@ class VonGame extends FlameGame with TapDetector, HasCollisionDetection {
 
   void restartGame() {
     overlays.remove('gameOverOverlay');
-    gameManager.continueGame();
+    gameManager.restartGame();
   }
 
   void _endGame() {

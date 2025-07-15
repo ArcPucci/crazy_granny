@@ -39,14 +39,14 @@ class GameShop {
     ),
     GameCurrency(
       id: 1,
-      quantity: 50000,
+      quantity: 25000,
       price: 1.99,
       priceString: '1,99',
       quantityString: '25 000',
     ),
     GameCurrency(
       id: 2,
-      quantity: 50000,
+      quantity: 10000,
       price: 0.99,
       priceString: '0,99',
       quantityString: '10 000',

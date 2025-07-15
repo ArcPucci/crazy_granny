@@ -122,11 +122,14 @@ class GameOverOverlay extends StatelessWidget {
           ),
         ),
         alignment: Alignment.center,
-        child: CustomStrokeText(
-          text: title,
-          textStyle: AppTextStyles.no24,
-          strokeColor: AppColors.purple1,
-          strokeWidth: 3.sp,
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: CustomStrokeText(
+            text: title,
+            textStyle: AppTextStyles.no24,
+            strokeColor: AppColors.purple1,
+            strokeWidth: 3.sp,
+          ),
         ),
       ),
     );

@@ -73,7 +73,7 @@ class BartenderGameProvider extends ChangeNotifier {
       _sidrs[index].lose = true;
       notifyListeners();
 
-      final empty = _sidrs.every((e) => !e.active || e.lose);
+      final empty = _sidrs.every((e) => !e.active || e.lose || e.won);
       if (!empty) return;
 
       _provider.addButtons(-bet);
@@ -88,9 +88,14 @@ class BartenderGameProvider extends ChangeNotifier {
       _sidrs[index].won = true;
 
       _provider.addButtons(_bet * 10);
-      _showCongrats(bet);
+      _showCongrats(bet * 10);
 
       notifyListeners();
+
+      final empty = _sidrs.every((e) => !e.active || e.lose || e.won);
+      if (!empty) return;
+
+      _reset();
       return;
     }
 

@@ -42,9 +42,9 @@ class _GameShopBoxState extends State<GameShopBox> {
 
   Future<void> loadPurchases() async {
     const Set<String> coins = {
-      'com.catch.game.ios_first_purchase',
-      'com.catch.game.ios_second_purchase',
-      'com.catch.game.ios_third_purchase',
+      'com.example.crazyGranny_first_purchase',
+      'com.example.crazyGranny_second_purchase',
+      'com.example.crazyGranny_third_purchase',
     };
     final response = await iapConnection.queryProductDetails(coins);
     for (var element in response.notFoundIDs) {
@@ -58,7 +58,7 @@ class _GameShopBoxState extends State<GameShopBox> {
     try {
       final iapConnectionFortune = InAppPurchase.instance;
       final newIAPpurchaseParam =
-      PurchaseParam(productDetails: product.productDetails);
+          PurchaseParam(productDetails: product.productDetails);
       await iapConnectionFortune.buyConsumable(
           purchaseParam: newIAPpurchaseParam);
     } catch (e) {
@@ -75,6 +75,12 @@ class _GameShopBoxState extends State<GameShopBox> {
       onDone: _updateStreamOnDone,
     );
     loadPurchases();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -97,24 +103,24 @@ class _GameShopBoxState extends State<GameShopBox> {
                 ),
               ),
               padding: EdgeInsets.symmetric(vertical: 15.h),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    GameShop.gameCurrencies.length,
-                        (index) {
-                      final currency = GameShop.gameCurrencies[index];
-                      return GameButtonsShopCard(
-                        quantity: currency.quantityString,
-                        buttonText: '${currency.priceString} \$',
-                        bestPrice: currency.bestPrice,
-                        onTap: () {
-                          _quantity = currency.quantity;
-                          buyLuckyAppsPurch(products[index]);
-                        },
-                      );
+              child: ListView.builder(
+                itemCount: GameShop.gameCurrencies.length,
+                itemBuilder: (context, index) {
+                  final currency = GameShop.gameCurrencies[index];
+                  return GameButtonsShopCard(
+                    quantity: currency.quantityString,
+                    buttonText: '${currency.priceString} \$',
+                    bestPrice: currency.bestPrice,
+                    onTap: () async {
+                      _quantity = currency.quantity;
+                      try {
+                        await buyLuckyAppsPurch(products[index]);
+                      } catch (e) {
+                        debugPrint("Ошибка покупки: $e");
+                      }
                     },
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ),

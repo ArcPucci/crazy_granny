@@ -67,49 +67,36 @@ class _GrannyItemsShopDialogState extends State<GrannyItemsShopDialog> {
                         right: 25.w,
                         bottom: 20.h,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Stack(
                         children: [
-                          SingleChildScrollView(
-                            controller: controller,
-                            child: Column(
-                              children: List.generate(
-                                GameShop.grannyItems.length,
-                                (index) {
-                                  final item = GameShop.grannyItems[index];
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                      top: index == 0 ? 0 : 7.h,
-                                    ),
-                                    child: FallingItemShopCard(
-                                      item: item,
-                                      onBuy: () => _buy(item),
-                                    ),
-                                  );
-                                },
-                              ),
+                          Positioned.fill(
+                            right: 12.w,
+                            child: ListView.builder(
+                              controller: controller,
+                              itemCount: GameShop.grannyItems.length,
+                              itemBuilder: (context, index) {
+                                final item = GameShop.grannyItems[index];
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    top: index == 0 ? 0 : 7.h,
+                                  ),
+                                  child: FallingItemShopCard(
+                                    item: item,
+                                    onBuy: () => _buy(item),
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 15.h),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: _thumbPosition,
-                                    right: 0,
-                                    child: Container(
-                                      width: 2.w,
-                                      height: _thumbHeight,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Colors.white.withValues(alpha: 20),
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                          Positioned(
+                            top: _thumbPosition + 15.h,
+                            right: 0,
+                            child: Container(
+                              width: 2.w,
+                              height: _thumbHeight,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 20),
+                                borderRadius: BorderRadius.circular(100),
                               ),
                             ),
                           ),

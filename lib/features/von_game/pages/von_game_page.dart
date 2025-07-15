@@ -23,6 +23,7 @@ class _VonGamePageState extends State<VonGamePage> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     game = VonGame(Provider.of(context, listen: false));
   }
@@ -33,6 +34,7 @@ class _VonGamePageState extends State<VonGamePage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
 
@@ -50,6 +52,8 @@ class _VonGamePageState extends State<VonGamePage> {
           backgroundBuilder: (context) {
             return Image.asset(
               'assets/png/von_game_bg.png',
+              width: 844.w,
+              height: 390.h,
               fit: BoxFit.fill,
             );
           },

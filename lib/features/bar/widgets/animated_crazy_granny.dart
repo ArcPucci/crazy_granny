@@ -53,8 +53,8 @@ class _AnimatedCrazyGrannyState extends State<AnimatedCrazyGranny>
         final index = (_controller.value * (list.length - 1)).round();
         return Image.asset(
           list[index],
-          width: 297.w,
-          height: 496.h,
+          width: 297.r,
+          height: 496.r,
           fit: BoxFit.fill,
         );
       },

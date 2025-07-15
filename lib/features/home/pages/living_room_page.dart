@@ -1,4 +1,3 @@
-import 'package:crazy_granny/shared/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -19,7 +18,6 @@ class _LivingRoomPageState extends State<LivingRoomPage> {
   void initState() {
     super.initState();
     ScreenUtil.ensureScreenSize();
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = Provider.of<AppDataRepository>(context, listen: false);
       if (await provider.getLastDailyReward()) _showDailyBonusDialog();
@@ -29,6 +27,7 @@ class _LivingRoomPageState extends State<LivingRoomPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.black,
       child: Stack(
         children: [
           Positioned.fill(

@@ -11,8 +11,8 @@ class ShootButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 131.w,
-        height: 127.h,
+        width: 131.r,
+        height: 127.r,
         decoration: BoxDecoration(
           image: const DecorationImage(
             image: AssetImage('assets/png/shoot_button.png'),

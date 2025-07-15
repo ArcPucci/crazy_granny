@@ -47,6 +47,12 @@ class BarPage extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 5.h,
+            left: 0,
+            right: 0,
+            child: const SafeArea(child: Center(child: SimpleAppBar())),
+          ),
         ],
       ),
     );
